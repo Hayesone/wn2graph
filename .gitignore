@@ -1,0 +1,6 @@
+# created by virtualenv automatically
+*.py
+wn2graph/output/
+wn2graph/wn_source/
+requirements.txt
+readme.md
