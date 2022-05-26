@@ -1,5 +1,4 @@
 import inspect
-from py2neo import Graph
 from wn2graph import config
 from wn2graph.config import graph
 
@@ -229,7 +228,11 @@ def w2wjacard(source, target):
         unwind nodes(pathT) as tNodes
         with collect(id(nNodes)) as col_nNodes,
             collect(id(tNodes)) as col_tNodes
-        RETURN "{source}" as sourceNode, "{target}" as targetNode, gds.similarity.jaccard(col_nNodes, col_tNodes) as gdsJaccardSimilarity
+        RETURN "{source}" as sourceNode, "{target}" as targetNode,
+                gds.similarity.jaccard(col_nNodes, col_tNodes) as gdsJaccardSimilarity,
+                gds.similarity.overlap(col_nNodes, col_tNodes) as gdsOverlapSimilarity,
+                gds.similarity.cosine(col_nNodes, col_tNodes) as gdsCosineSimilarity,
+                gds.similarity.pearson(col_nNodes, col_tNodes) as gdsPearsonSimilarity
         """)
 
     return cypher.data()

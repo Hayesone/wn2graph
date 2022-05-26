@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set active_page = "w2wjaccard" %}
+{% set active_page = "w2w_gds" %}
 
 
 
@@ -14,10 +14,10 @@
     <p>Using the forms below fill in your desired query and press the button to get the results, some results may take a couple seconds.</p>
     <div>
         <div class="form">
-            <h3>Word 2 Word Jaccard Sim</h3>
-            <p>Will find the jaccard similarity levels between two sets of senses, with the the lemma of senses queried being inputted words.</p>
+            <h3>Word 2 Word GDS function Similarity</h3>
+            <p>Will find the GDS functions for similarity levels between two sets of senses, with the the lemma of senses queried being inputted words.</p>
             <p>This similarity does not use semantic relations, and purely looks at lex_Sense, lex_Concept, and the relation between them due to performance issues when including all relations.</p>
-            <form class="form" method="POST" action="{{ url_for('w2wjaccard') }}">
+            <form class="form" method="POST" action="{{ url_for('w2w_gds') }}">
                 <div class="form-group">
                     {{ w2word_form.word1.label(class="form-label") }}
                     {{ w2word_form.word1(class="form-control") }}
