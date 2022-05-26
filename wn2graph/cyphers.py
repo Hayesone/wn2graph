@@ -9,6 +9,26 @@ Queries to run against the graph databse, to find similarity
 
 """
 
+def distinctRelationfrom():
+    list = []
+    for pos in config.file_pos:
+        cypher = graph.run(f'''     
+        // Distinct relations for each pos
+        WITH "file://data.{pos}.json" AS path
+            CALL apoc.load.json(path) yield value
+            unwind value as data
+            unwind data.relations as relations
+            RETURN distinct relations.rel_type
+        ''')
+        for x in cypher.data():
+            for key, value in x.items():
+                if value not in list:
+                    list.append(value)
+
+    return print(f"Number of relations: {len(list)}\n{list}")
+
+
+
 def count4eachRelation():
 
     for relKey, relValue in config.wn_relations.items():

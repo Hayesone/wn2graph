@@ -5,9 +5,8 @@ from wn2graph import setupGraph, config, cyphers, pullData
 
 
 def main():
-    print("Hello World!")
 
-    #compare()
+    # compare()
 
     #start = timeit.default_timer()
 
@@ -30,9 +29,11 @@ def main():
 
     #cyphers.count4eachRelation()
 
-    cyphers.checkExsistsGDSgraph()
+    # cyphers.checkExsistsGDSgraph()
 
+    # cyphers.distinctRelationfrom()
 
 
 if __name__ == "__main__":
+    print("run from main()")
     main()
