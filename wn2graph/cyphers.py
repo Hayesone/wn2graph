@@ -28,6 +28,43 @@ def distinctRelationfrom():
     return print(f"Number of relations: {len(list)}\n{list}")
 
 
+def distinctSynsetsfrom():
+    list = []
+    for pos in config.file_pos:
+        cypher = graph.run(f'''     
+        // Distinct relations for each pos
+        WITH "file://data.{pos}.json" AS path
+            CALL apoc.load.json(path) yield value
+            unwind value as data
+            unwind data.id as id
+            RETURN distinct id
+        ''')
+        for x in cypher.data():
+            for key, value in x.items():
+                if value not in list:
+                    list.append(value)
+
+    return print(f"Number of Synsets: {len(list)}")
+
+def countUniqueSenses():
+    list = []
+    for pos in config.file_pos:
+        cypher = graph.run(f'''     
+        // Distinct relations for each pos
+        WITH "file://data.{pos}.json" AS path
+            CALL apoc.load.json(path) yield value
+            unwind value as data
+            unwind data.lemmas as lemmas
+            RETURN lemmas.lemma
+        ''')
+        for x in cypher.data():
+            for key, value in x.items():
+                list.append(value)
+
+
+    return print(f"Number of Synsets: {len(list)}")
+
+
 
 def count4eachRelation():
 
@@ -242,8 +279,8 @@ def w2wjacard(source, target):
     cypher = graph.run(f"""
         MATCH (n:lex_Sense {{wn_lemma: "{source}"}})
         MATCH (t:lex_Sense {{wn_lemma: "{target}"}})
-        CALL apoc.path.expand(n, "lexicalisedSense", null, 0, 10) yield path as pathN
-        CALL apoc.path.expand(t, "lexicalisedSense", null, 0, 10) yield path as pathT
+        CALL apoc.path.expand(n, null, "lex_Sense|lex_Concept", 0, 1) yield path as pathN
+        CALL apoc.path.expand(t, null, "lex_Sense|lex_Concept", 0, 1) yield path as pathT
         unwind nodes(pathN) as nNodes
         unwind nodes(pathT) as tNodes
         with collect(id(nNodes)) as col_nNodes,

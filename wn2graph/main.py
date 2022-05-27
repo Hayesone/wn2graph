@@ -5,7 +5,7 @@ from wn2graph import setupGraph, config, cyphers, pullData
 
 
 def main():
-
+    print("this is main()")
     # compare()
 
     #start = timeit.default_timer()
@@ -27,11 +27,13 @@ def main():
     # for item in test[0]:
     #     print(f"{item} is key, {test[0][item]} is value")
 
-    #cyphers.count4eachRelation()
+    # cyphers.count4eachRelation()
 
     # cyphers.checkExsistsGDSgraph()
 
-    # cyphers.distinctRelationfrom()
+    # cyphers.distinctSynsetsfrom()
+
+    # setupGraph.IndexesConstraints()
 
 
 if __name__ == "__main__":

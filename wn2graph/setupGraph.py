@@ -101,6 +101,7 @@ def BuildRelationshipsWN():
 
     for wn_rel, rel_item in config.wn_relations.items():
         print(f"Relation without word pointers: {wn_rel}")
+        rel_start = time.time()
         for p in config.file_pos:
             cypher = graph.run(f'''
             // Relationships ({wn_rel})
@@ -124,9 +125,14 @@ def BuildRelationshipsWN():
                 ON CREATE SET r += {{rel_type:"{rel_item[0]}",cost:{rel_item[1]}}}
                 RETURN COUNT(r)', {{batchSize:100, parallel:false}})''')
             print(f"POS: {p} COUNT: {cypher.data()}")
+        rel_end = time.time()
+        print(f"Query time: {rel_end - rel_start}")
+
+
 
     for wn_rel, rel_item in config.wn_relations.items():
         print(f"Relation with word pointers: {wn_rel}")
+        rel_start = time.time()
         for p in config.file_pos:
             cypher = graph.run(f'''
             // Relationships ({wn_rel})
@@ -155,6 +161,9 @@ def BuildRelationshipsWN():
                                     trg_word:trg_word}}
                 RETURN COUNT(r)', {{batchSize:100, parallel:false}})''')
             print(f"POS: {p} COUNT: {cypher.data()}")
+        rel_end = time.time()
+        print(f"Query time: {rel_end - rel_start}")
+
 
     return print(f"Finished: {inspect.stack()[0][3]}\n---")
 

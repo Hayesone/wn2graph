@@ -5,7 +5,7 @@ from py2neo import Graph
 uri = "bolt://localhost:7687"
 dbUser = "neo4j"
 dbPass = "123"
-dbName = "test6"
+dbName = "neo4j"
 graph = Graph(uri, auth=(dbUser, dbPass), name=dbName)
 
 # WordNet relations between senses and synsets stored in JSON files
